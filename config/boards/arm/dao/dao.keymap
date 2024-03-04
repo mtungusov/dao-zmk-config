@@ -7,24 +7,24 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/keys.h>
 
-#define LAYER_Engram 0
-#define LAYER_QWERTY 1
-#define LAYER_Nav 2
-#define LAYER_Num 3
-#define LAYER_Sym 4
-#define LAYER_Func 5
-#define LAYER_Sys 6
+#define LAYER_ColemakDH 0
+#define LAYER_Num 1
+#define LAYER_Sym 2
+#define LAYER_Func 3
+#define LAYER_Nav 4
+#define LAYER_Sys 5
+#define LAYER_QWERTY 6
+#define LAYER_Engram 7
 
-#define ALPHAS LAYER_Engram LAYER_QWERTY
+#define ALPHAS LAYER_ColemakDH LAYER_QWERTY LAYER_Engram
 
-&lt { 
+&lt {
     tapping-term-ms = <120>;
-    quick_tap_ms = <200>; 
+    quick_tap_ms = <200>;
 };
 
-&mt { 
+&mt {
     tapping-term-ms = <120>;
     quick_tap_ms = <75>;
 };
@@ -33,7 +33,7 @@
     continue-list = <UNDERSCORE MINUS BSPC DELETE N1 N2 N3 N4 N5 N6 N7 N8 N9 N0>;
 };
 
-/ { 
+/ {
 
     combos {
         compatible = "zmk,combos";
@@ -143,30 +143,12 @@
     keymap {
         compatible = "zmk,keymap";
 
-        layer_Engram {
+        layer_ColemakDH {
             bindings = <
-&none  &kp LBKT   &kp B  &kp Y       &kp O         &kp U          &engram_apos          &engram_dquote        &kp L            &kp D        &kp W       &kp V     &kp Z   &tog LAYER_QWERTY
-       &kp BSLH   &hp LCMD C  &hr LALT I  &hm LCTRL E   &hi LSHFT A    &engram_comma    &engram_period  &hi RSHFT H      &hm RCTRL T  &hr RALT S  &hp RCMD N  &kp Q
-       &kp GRAVE  &kp G  &kp X       &kp J         &kp K          &kp MINUS          &engram_question        &kp R            &kp M    &kp F     &kp P  &kp RBKT
+&kp LCTRL  &kp LBKT   &kp Q       &kp W       &kp F         &kp P          &kp B          &kp J        &kp L            &kp U        &kp Y       &kp SEMI     &kp RBKT   &tog LAYER_QWERTY
+           &kp EQUAL  &hp LCMD A  &hr LALT R  &hm LCTRL S   &hi LSHFT T    &kp G          &kp M        &hi RSHFT N      &hm RCTRL E  &hr RALT I  &hp RCMD O   &kp SQT
+           &kp GRAVE  &kp Z       &kp X       &kp C         &kp D          &kp V          &kp K        &kp H            &kp COMMA    &kp DOT     &kp FSLH  &kp BSLH
                                      &mt LALT ESC  &mt LCMD BACKSPACE  &lt LAYER_Num TAB    &lt LAYER_Sym ENTER  &lt LAYER_Nav SPACE  &lt LAYER_Func DEL
-            >;
-        };
-
-        layer_QWERTY {
-            bindings = <
-&none  &kp LBKT   &kp Q  &kp W       &kp E         &kp R          &kp T          &kp Y        &kp U            &kp I        &kp O       &kp P     &kp RBKT   &tog LAYER_QWERTY
-       &kp BSLH   &hp LCMD A  &hr LALT S  &hm LCTRL D   &hi LSHFT F    &kp G    &kp H  &hi RSHFT J      &hm RCTRL K  &hr RALT L  &hp RCMD SEMI  &kp SQT
-       &kp GRAVE  &kp Z  &kp X       &kp C         &kp V          &kp B          &kp N        &kp M            &kp COMMA    &kp DOT     &kp FSLH  &kp EQUAL
-                                     &mt LALT ESC  &mt LCMD BACKSPACE  &lt LAYER_Num TAB    &lt LAYER_Sym ENTER  &lt LAYER_Nav SPACE  &lt LAYER_Func DEL
-            >;
-        };
-
-        layer_Nav {
-            bindings = <
-&none  &kp GLOBE  &none  &kp LC(A)    &kp LC(B)      &kp LC(F)          &kp LC(E)          &kp HOME       &kp PG_DN      &kp PG_UP      &kp END        &none  &none  &none
-       &caps_word   &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT      &none          &kp LEFT       &kp DOWN       &kp UP         &kp RIGHT      &none  &none
-       &kp F16    &none  &kp LA(A)     &kp LA(B)     &kp LA(F)  &kp LA(E)    &kp LC(LA(A))  &kp LC(LA(B))  &kp LC(LA(F))  &kp LC(LA(E))  &none  &none
-                                   &none   &none         &kp TAB          &none          &trans         &none
             >;
         };
 
@@ -193,7 +175,16 @@
 &none  &kp GLOBE   &none  &none     &none      &none      &none    &kp F9  &kp F10  &kp F11  &kp F12  &none  &kp C_VOL_UP  &none
        &caps_word  &none  &kp LALT  &kp LCTRL  &kp LSHFT  &none    &kp F5  &kp F6   &kp F7   &kp F8   &none  &kp C_MUTE
        &kp F16     &none  &none     &none      &none      &none    &kp F1  &kp F2   &kp F3   &kp F4   &none  &kp C_VOL_DN
-                               &kp LCMD   &none      &none    &none   &none    &trans
+                               &kp LCMD   &none      &none    &mo LAYER_Sys   &none    &trans
+            >;
+        };
+
+        layer_Nav {
+            bindings = <
+&none  &kp GLOBE  &none  &kp LC(A)    &kp LC(B)      &kp LC(F)          &kp LC(E)          &kp HOME       &kp PG_DN      &kp PG_UP      &kp END        &none  &none  &none
+       &caps_word   &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT      &none          &kp LEFT       &kp DOWN       &kp UP         &kp RIGHT      &none  &none
+       &kp F16    &none  &kp LA(A)     &kp LA(B)     &kp LA(F)  &kp LA(E)    &kp LC(LA(A))  &kp LC(LA(B))  &kp LC(LA(F))  &kp LC(LA(E))  &none  &none
+                                   &none   &none         &kp TAB          &none          &trans         &none
             >;
         };
 
@@ -202,8 +193,27 @@
 &sys_reset  &bootloader  &none         &none         &none         &none         &none           &none         &none         &none         &none         &none         &bootloader  &sys_reset
             &bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &bt BT_SEL 4  &bt BT_SEL 3  &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0  &bt BT_CLR
             &none        &none         &none         &none         &none         &none           &none         &none         &none         &none         &none         &none
-                                                     &none         &trans        &trans          &trans        &trans        &none
+                                                     &trans        &none         &trans          &trans        &none         &trans
             >;
         };
+
+        layer_QWERTY {
+            bindings = <
+&kp LCTRL  &kp LBKT   &kp Q       &kp W       &kp E         &kp R          &kp T          &kp Y        &kp U            &kp I        &kp O       &kp P          &kp RBKT   &tog LAYER_QWERTY
+           &kp EQUAL  &hp LCMD A  &hr LALT S  &hm LCTRL D   &hi LSHFT F    &kp G          &kp H        &hi RSHFT J      &hm RCTRL K  &hr RALT L  &hp RCMD SEMI  &kp SQT
+           &kp GRAVE  &kp Z       &kp X       &kp C         &kp V          &kp B          &kp N        &kp M            &kp COMMA    &kp DOT     &kp FSLH       &kp BSLH
+                                     &mt LALT ESC  &mt LCMD BACKSPACE  &lt LAYER_Num TAB    &lt LAYER_Sym ENTER  &lt LAYER_Nav SPACE  &lt LAYER_Func DEL
+            >;
+        };
+
+        layer_Engram {
+            bindings = <
+&none      &kp LBKT   &kp B       &kp Y       &kp O         &kp U          &engram_apos   &engram_dquote    &kp L        &kp D        &kp W       &kp V       &kp Z   &none
+           &kp BSLH   &hp LCMD C  &hr LALT I  &hm LCTRL E   &hi LSHFT A    &engram_comma  &engram_period    &hi RSHFT H  &hm RCTRL T  &hr RALT S  &hp RCMD N  &kp Q
+           &kp GRAVE  &kp G       &kp X       &kp J         &kp K          &kp MINUS      &engram_question  &kp R        &kp M        &kp F       &kp P       &kp RBKT
+                                     &mt LALT ESC  &mt LCMD BACKSPACE  &lt LAYER_Num TAB    &lt LAYER_Sym ENTER  &lt LAYER_Nav SPACE  &lt LAYER_Func DEL
+            >;
+        };
+
     };
 };
